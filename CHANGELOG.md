@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.1 — 2026-09-30
+
+A backup date ("27 Ağustos") no longer breaks across two lines on a narrow screen.
+
 ## v0.2.0 — 2026-09-29
 
 Backups: the file format and its reading (`backup/format.ts`), saving through the share sheet or a download,

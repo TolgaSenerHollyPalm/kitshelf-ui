@@ -8,13 +8,15 @@ export function calendarDaysAgo(then: Date, now: Date): number {
   return Math.max(0, Math.round((midnight(now) - midnight(then)) / (24 * 60 * 60 * 1000)))
 }
 
-/** "26 Ağustos", or "26 Ağustos 2025" in another year. */
+/** "26 Ağustos", or "26 Ağustos 2025" in another year; kept on one line on a narrow screen. */
 export function dayMonth(date: Date, now = new Date()): string {
-  return date.toLocaleDateString('tr-TR', {
-    day: 'numeric',
-    month: 'long',
-    ...(date.getFullYear() !== now.getFullYear() && { year: 'numeric' }),
-  })
+  return date
+    .toLocaleDateString('tr-TR', {
+      day: 'numeric',
+      month: 'long',
+      ...(date.getFullYear() !== now.getFullYear() && { year: 'numeric' }),
+    })
+    .replaceAll(' ', '\u00a0')
 }
 
 function ago(then: Date, now: Date): string {

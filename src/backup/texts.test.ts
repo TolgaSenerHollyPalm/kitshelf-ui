@@ -8,10 +8,10 @@ const at = (y: number, m: number, d: number, h = 12) => new Date(y, m - 1, d, h)
 describe('lastBackupText', () => {
   it('counts calendar days on the phone, not 24-hour stretches', () => {
     expect(lastBackupText(undefined, NOW)).toBe('Henüz yedek almadın')
-    expect(lastBackupText(at(2026, 9, 29, 0), NOW)).toBe('Bugün · 29 Eylül')
-    expect(lastBackupText(at(2026, 9, 28, 23), NOW)).toBe('Dün · 28 Eylül')
-    expect(lastBackupText(at(2026, 8, 26, 21), NOW)).toBe('34 gün önce · 26 Ağustos')
-    expect(lastBackupText(at(2025, 8, 26), NOW)).toBe('399 gün önce · 26 Ağustos 2025')
+    expect(lastBackupText(at(2026, 9, 29, 0), NOW)).toBe('Bugün · 29\u00a0Eylül')
+    expect(lastBackupText(at(2026, 9, 28, 23), NOW)).toBe('Dün · 28\u00a0Eylül')
+    expect(lastBackupText(at(2026, 8, 26, 21), NOW)).toBe('34 gün önce · 26\u00a0Ağustos')
+    expect(lastBackupText(at(2025, 8, 26), NOW)).toBe('399 gün önce · 26\u00a0Ağustos\u00a02025')
   })
 })
 
@@ -52,7 +52,7 @@ describe('messages', () => {
 
   it('warns what deleting loses', () => {
     expect(wipeWarning(undefined, NOW)).toBe('Yedeğin yok; silinenler geri gelmez.')
-    expect(wipeWarning(at(2026, 8, 26), NOW)).toBe('Son yedeğin 26 Ağustos; ondan sonraki değişiklikler geri gelmez.')
+    expect(wipeWarning(at(2026, 8, 26), NOW)).toBe('Son yedeğin 26\u00a0Ağustos; ondan sonraki değişiklikler geri gelmez.')
   })
 
   it('shows when a backup was taken', () => {
