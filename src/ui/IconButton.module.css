@@ -1,0 +1,37 @@
+.icon {
+  position: relative;
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--tap-size);
+  height: var(--tap-size);
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.icon:active {
+  background: var(--color-sunken);
+}
+
+@media (hover: hover) {
+  .icon:hover {
+    border-color: var(--color-check-border);
+  }
+}
+
+/* Something waits behind this button, e.g. a backup that is due; the label has to say what. */
+.badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--color-surface);
+  border-radius: var(--radius-pill);
+  background: var(--color-amber-strong);
+}

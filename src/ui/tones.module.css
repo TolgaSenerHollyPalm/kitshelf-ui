@@ -1,0 +1,51 @@
+/* The colour a list or tile speaks in. Components take a tone and read these variables. */
+.teal {
+  --tone-fill: var(--color-primary); /* progress */
+  --tone-strong: var(--color-primary); /* a ticked check */
+  --tone-on-strong: var(--color-on-primary);
+  --tone-soft: var(--color-primary-soft); /* tiles */
+  --tone-ink: var(--color-primary-dark); /* icons on the soft colour, counts */
+  --tone-button: var(--color-primary); /* the add button */
+  --tone-on-button: var(--color-on-primary);
+}
+
+.coral {
+  --tone-fill: var(--color-coral);
+  --tone-strong: var(--color-coral-strong);
+  --tone-on-strong: var(--color-on-coral-strong);
+  --tone-soft: var(--color-coral-soft);
+  --tone-ink: var(--color-coral-text);
+  --tone-button: var(--color-coral-strong);
+  --tone-on-button: var(--color-on-coral-strong);
+}
+
+.amber {
+  --tone-fill: var(--color-amber);
+  --tone-strong: var(--color-amber-strong);
+  --tone-on-strong: var(--color-on-amber-strong);
+  --tone-soft: var(--color-amber-soft);
+  --tone-ink: var(--color-amber-text);
+  --tone-button: var(--color-amber);
+  --tone-on-button: var(--color-on-amber);
+}
+
+.neutral {
+  --tone-fill: var(--color-chip-text);
+  --tone-strong: var(--color-chip-text);
+  --tone-on-strong: var(--color-surface);
+  --tone-soft: var(--color-chip);
+  --tone-ink: var(--color-chip-text);
+  --tone-button: var(--color-text);
+  --tone-on-button: var(--color-surface);
+}
+
+/* A second colour a parent sets through --accent-*, e.g. a trip's; the kit colour without one. */
+.accent {
+  --tone-fill: var(--accent-color, var(--color-primary));
+  --tone-strong: var(--accent-color, var(--color-primary));
+  --tone-on-strong: var(--accent-on, var(--color-on-primary));
+  --tone-soft: var(--accent-soft, var(--color-primary-soft));
+  --tone-ink: var(--accent-ink, var(--color-primary-dark));
+  --tone-button: var(--accent-color, var(--color-primary));
+  --tone-on-button: var(--accent-on, var(--color-on-primary));
+}
