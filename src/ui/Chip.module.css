@@ -28,6 +28,12 @@
   color: var(--accent-ink, var(--color-primary-dark));
 }
 
+/* Something that wants attention, e.g. an old backup. */
+.amber {
+  background: var(--color-amber-soft);
+  color: var(--color-amber-text);
+}
+
 .online {
   background: var(--color-online-bg);
   color: var(--color-online-text);

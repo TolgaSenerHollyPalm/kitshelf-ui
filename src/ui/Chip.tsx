@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import styles from './Chip.module.css'
 
 interface ChipProps {
-  tone?: 'neutral' | 'quiet' | 'accent' | 'online'
+  tone?: 'neutral' | 'quiet' | 'accent' | 'amber' | 'online'
   strong?: boolean // a count, e.g. "57 gün"
   icon?: ReactNode
   children: ReactNode

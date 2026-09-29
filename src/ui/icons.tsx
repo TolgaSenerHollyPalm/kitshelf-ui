@@ -162,3 +162,12 @@ export function FileIcon({ size = 20, strokeWidth = 1.8 }: IconProps) {
     </svg>
   )
 }
+
+/** Something to look at, e.g. storage the browser may clear; small enough for a 24px circle. */
+export function AlertIcon({ size = 14, strokeWidth = 3 }: IconProps) {
+  return (
+    <svg {...lineIcon(size, strokeWidth)}>
+      <path d="M12 6v7.5M12 18v.01" />
+    </svg>
+  )
+}

@@ -1,0 +1,45 @@
+/* Its own divider underneath, so the card needs none when the row is absent. */
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: var(--space);
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin-top: 1px;
+  border-radius: var(--radius-pill);
+}
+
+.kept {
+  background: var(--color-success);
+  color: var(--color-on-success);
+}
+
+.atRisk {
+  background: var(--color-amber-soft);
+  color: var(--color-amber-text);
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.text {
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}

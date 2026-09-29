@@ -89,11 +89,57 @@ Components take **addresses** (`'#/settings'`), never a kit's own route type.
 | Folder | What |
 | --- | --- |
 | `styles/` | `tokens.css`, `base.css` (element defaults), `fonts.css` (Bricolage Grotesque and Figtree, latin and latin-ext, from `@fontsource-variable`) |
-| `ui/` | `Screen`, `Button` / `LinkButton`, `IconButton` / `IconLink` (with `badge`), `ListCard` / `LinkRow` / `ItemRow`, `Tile`, `CheckButton`, `Chip`, `ChoiceGroup`, `ConfirmDialog`, `DeleteButton`, `Disclosure`, `Menu`, `ProgressBar`, `SegmentedTabs`, `Stepper`, `AddField`, `RequiredMark`, `Avatar`, `Missing`, `OnlineBadge` + `useOnline`, `IosInstallHint` + `installHint.ts` |
+| `ui/` | `Screen`, `Button` / `LinkButton`, `IconButton` / `IconLink` (with `badge`), `ListCard` / `LinkRow` / `ItemRow`, `Tile`, `CheckButton`, `Chip`, `ChoiceGroup`, `ConfirmDialog`, `DeleteButton`, `Disclosure`, `Menu`, `ProgressBar`, `SegmentedTabs`, `Stepper`, `AddField`, `RequiredMark`, `Avatar`, `Missing`, `OnlineBadge` + `useOnline`, `IosInstallHint` + `installHint.ts`, `InfoDialog`, `ToastProvider` / `Toasts` / `useToast`, `SettingsFooter` |
 | `ui/` (styles and helpers) | `tone.ts` + `tones.module.css` (teal, coral, amber, neutral, accent), `text.module.css`, `turkish.ts` (`locative`: "Deniz’de") |
-| `ui/icons.tsx` | Back, Plus, Check, Close, Gear, Sliders, ChevronRight, ChevronDown, Dots, ArrowRight, Refresh, Auto, Sun, Moon, Share, Download, History, File. A kit draws its own with `lineIcon()` from `ui/iconBase.ts`. |
+| `ui/icons.tsx` | Back, Plus, Check, Close, Gear, Sliders, ChevronRight, ChevronDown, Dots, ArrowRight, Refresh, Auto, Sun, Moon, Share, Download, History, File, Alert. A kit draws its own with `lineIcon()` from `ui/iconBase.ts`. |
 | `app/` | `appearance.ts`, `hashRouter.ts` (`useHash()`, `go(href, { replace })`), `ConnectionNotice`, `UpdateToast`, `toast.module.css` (`stack`, `toast`, `actions`) |
 | `storage/` | `wipe.ts`: `wipeDevice({ databaseNames, ownKeys, beforeDelete, appShell, scope })` |
+| `backup/` | the file format, saving, reading, restoring, merging, the reminder, storage status and their texts; `BackupCard`, `RestoreSheet`, `BackupReminder`, `StorageStatus` (see Backups) |
+
+## Backups
+
+A kit's data leaves the device only as a file the user keeps: shared through the phone's share sheet or downloaded,
+and read back the same way. There is no server, no account and no syncing.
+
+**File.** `tripkit-yedek-2026-09-29.json` (the phone's own date), an envelope around the kit's data:
+
+```json
+{
+  "format": "kitshelf-backup", "formatVersion": 1,
+  "kit": "tripkit", "kitName": "TripKit", "dataVersion": 4,
+  "exportedAt": "…", "appBuild": "…",
+  "summary": { "trips": 3, "packs": 2 },
+  "data": { }
+}
+```
+
+`formatVersion` is the envelope's and stays 1; `dataVersion` is the kit's own. `summary` is for people opening the
+file; the preview counts the data again. Device preferences such as the appearance setting stay out.
+
+**Adapter.** A kit describes its data with `BackupAdapter` from `backup/format.ts`: `exportData()` reads memory and
+is synchronous, because the share sheet only opens right after the tap; `validate()` checks structure only and must
+accept the kit's own older records; `migrate()` throws for a version it does not know; `restore()` writes in a single
+transaction, so a failure changes nothing.
+
+| Function | What it does |
+| --- | --- |
+| `saveBackup(adapter)` | Shares the file where `navigator.canShare` allows files, otherwise downloads it. A closed share sheet is `cancelled` and records nothing; a refused share falls back to the download. Call it straight from the tap, with no `await` before it. |
+| `readBackup(file, adapter)` | Over 20 MB or not JSON or not a KitShelf backup → `not-backup`; another kit → `other-kit` (checked before the versions); a newer envelope or data version → `too-new`; a single broken record or a repeated id → `damaged`. Nothing is written. |
+| `restoreBackup(backup, adapter, mode)` | `merge` or `replace` through the adapter; the last backup date becomes the later of the saved one and the file's. |
+| `mergeById(local, incoming, { newer })` | Adds what the device lacks and keeps the newer of what both have (by `updatedAt`, missing = oldest; a tie keeps the device's). |
+| `backupDue(…)` | Due after 7 × 24 hours of data with no backup, or 30 × 24 hours after the last one if something changed since; a snooze hides the banner for a week, not the dot. |
+| `storageStatus()` | `granted`, `not-granted` or `unknown` (then the row stays hidden). |
+
+State lives in localStorage under `<kit>-last-backup`, `<kit>-data-since` and `<kit>-backup-snoozed-until`. Add
+`backupKeyList(kit)` to the keys the kit's wipe removes, and call `trackDataSince()` whenever the data changes.
+
+**Parts.** `BackupCard`, `RestoreSheet`, `BackupReminder` and `StorageStatus` in `backup/`; `InfoDialog`,
+`ToastProvider` / `Toasts` / `useToast` and `SettingsFooter` in `ui/`. The shared Turkish texts are in
+`backup/texts.ts`; what names the kit's own data ("seyahat…") comes in as props.
+
+**Limits.** Chrome's list of file types it will share leaves out `.json`, so on Android the file is most likely
+downloaded rather than shared; keep the extension anyway. Deletions do not travel: merging an old backup brings back
+what was deleted since. A record changed on two devices keeps the newer copy as a whole, by each device's clock.
 
 ## Checks
 
