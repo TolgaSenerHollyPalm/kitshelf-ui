@@ -29,3 +29,24 @@
   display: flex;
   gap: 12px;
 }
+
+/* A short notice with one link: the text and the link share a row, the link at full tap size. */
+.withAction {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 8px 8px var(--space);
+}
+
+.action {
+  display: flex;
+  flex: none;
+  align-items: center;
+  min-height: var(--tap-size);
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  background: rgb(255 255 255 / 0.14);
+  color: inherit;
+  font-weight: 700;
+  text-decoration: none;
+}

@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.4.0 — 2026-09-30
+
+A toast can carry one link: `show('Huzur kitaplığa eklendi', { action: { label: 'Aç', to: '#/book/…' } })`. The
+notice leaves when the link is followed, and `show` now returns a function that takes it down early. Nothing
+changes for a toast without a link.
+
 ## v0.3.0 — 2026-09-30
 
 For BookKit, with nothing changed for a kit that does not use them: a `tonal` Button (the kit's soft colour, for a

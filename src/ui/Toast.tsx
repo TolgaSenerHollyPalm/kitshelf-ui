@@ -15,14 +15,17 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     return () => pending.forEach(clearTimeout)
   }, [])
 
-  const show = useCallback<ToastApi['show']>((message, { duration = DEFAULT_MS } = {}) => {
+  const show = useCallback<ToastApi['show']>((message, { duration = DEFAULT_MS, action } = {}) => {
     const id = nextId.current++
-    setToasts((list) => [...list, { id, message }])
-    const timer = setTimeout(() => {
+    const dismiss = () => {
+      clearTimeout(timer)
       timers.current.delete(timer)
       setToasts((list) => list.filter((item) => item.id !== id))
-    }, duration)
+    }
+    const timer = setTimeout(dismiss, duration)
     timers.current.add(timer)
+    setToasts((list) => [...list, action ? { id, message, action, dismiss } : { id, message, dismiss }])
+    return dismiss
   }, [])
 
   const api = useMemo(() => ({ show, toasts }), [show, toasts])
@@ -33,8 +36,14 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 export function Toasts() {
   const { toasts } = useContext(ToastContext)
   return toasts.map((item) => (
-    <div key={item.id} className={toast.toast} role="status">
+    <div key={item.id} className={item.action ? `${toast.toast} ${toast.withAction}` : toast.toast} role="status">
       <p>{item.message}</p>
+      {/* Following the link is the notice's whole purpose, so it leaves with the tap. */}
+      {item.action && (
+        <a className={toast.action} href={item.action.to} onClick={item.dismiss}>
+          {item.action.label}
+        </a>
+      )}
     </div>
   ))
 }
