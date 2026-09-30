@@ -11,11 +11,12 @@ build step here.
 
 ```json
 "dependencies": {
-  "kitshelf-ui": "github:TolgaSenerHollyPalm/kitshelf-ui#v0.1.0"
+  "kitshelf-ui": "github:TolgaSenerHollyPalm/kitshelf-ui#v0.2.1"
 }
 ```
 
-Every kit pins an exact tag. Then, in the kit:
+Every kit pins an exact tag; [CHANGELOG.md](CHANGELOG.md) lists them. A kit made from kit-template has all of the
+following already. In a kit:
 
 - `vite.config.ts`: `optimizeDeps: { exclude: ['kitshelf-ui'] }`, so Vite serves the sources instead of pre-bundling
   them. Keep `woff2` in the service worker's precache (`workbox: { globPatterns: ['**/*.{js,css,html,woff2}'] }`),
