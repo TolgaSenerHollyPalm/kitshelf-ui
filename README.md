@@ -11,7 +11,7 @@ build step here.
 
 ```json
 "dependencies": {
-  "kitshelf-ui": "github:TolgaSenerHollyPalm/kitshelf-ui#v0.2.1"
+  "kitshelf-ui": "github:TolgaSenerHollyPalm/kitshelf-ui#v0.3.0"
 }
 ```
 
@@ -90,7 +90,7 @@ Components take **addresses** (`'#/settings'`), never a kit's own route type.
 | Folder | What |
 | --- | --- |
 | `styles/` | `tokens.css`, `base.css` (element defaults), `fonts.css` (Bricolage Grotesque and Figtree, latin and latin-ext, from `@fontsource-variable`) |
-| `ui/` | `Screen`, `Button` / `LinkButton`, `IconButton` / `IconLink` (with `badge`), `ListCard` / `LinkRow` / `ItemRow`, `Tile`, `CheckButton`, `Chip`, `ChoiceGroup`, `ConfirmDialog`, `DeleteButton`, `Disclosure`, `Menu`, `ProgressBar`, `SegmentedTabs`, `Stepper`, `AddField`, `RequiredMark`, `Avatar`, `Missing`, `OnlineBadge` + `useOnline`, `IosInstallHint` + `installHint.ts`, `InfoDialog`, `ToastProvider` / `Toasts` / `useToast`, `SettingsFooter` |
+| `ui/` | `Screen`, `Button` / `LinkButton` (primary, secondary, tonal, text, danger), `IconButton` / `IconLink` (with `badge`), `ListCard` / `LinkRow` / `ItemRow`, `Tile`, `CheckButton`, `Chip`, `ChoiceGroup`, `ConfirmDialog`, `DeleteButton`, `Disclosure`, `Menu`, `ProgressBar`, `SegmentedTabs`, `Stepper`, `AddField`, `RequiredMark`, `Avatar`, `Missing`, `OnlineBadge` + `useOnline`, `IosInstallHint` + `installHint.ts`, `InfoDialog`, `Sheet`, `ToastProvider` / `Toasts` / `useToast`, `SettingsFooter` |
 | `ui/` (styles and helpers) | `tone.ts` + `tones.module.css` (teal, coral, amber, neutral, accent), `text.module.css`, `turkish.ts` (`locative`: "Deniz’de") |
 | `ui/icons.tsx` | Back, Plus, Check, Close, Gear, Sliders, ChevronRight, ChevronDown, Dots, ArrowRight, Refresh, Auto, Sun, Moon, Share, Download, History, File, Alert. A kit draws its own with `lineIcon()` from `ui/iconBase.ts`. |
 | `app/` | `appearance.ts`, `hashRouter.ts` (`useHash()`, `go(href, { replace })`), `ConnectionNotice`, `UpdateToast`, `toast.module.css` (`stack`, `toast`, `actions`) |

@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.3.0 — 2026-09-30
+
+For BookKit, with nothing changed for a kit that does not use them: a `tonal` Button (the kit's soft colour, for a
+step forward that is not the screen's main action) and `Sheet`, a panel from the bottom of the screen for one small
+task.
+
 ## v0.2.1 — 2026-09-30
 
 A backup date ("27 Ağustos") no longer breaks across two lines on a narrow screen.

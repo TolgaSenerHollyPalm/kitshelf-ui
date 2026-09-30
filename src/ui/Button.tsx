@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 import styles from './Button.module.css'
 
-type Variant = 'primary' | 'secondary' | 'text' | 'danger'
+type Variant = 'primary' | 'secondary' | 'tonal' | 'text' | 'danger'
 
 const className = (variant: Variant, big = false, inline = false) =>
   [styles.button, styles[variant], big && styles.big, inline && styles.inline].filter(Boolean).join(' ')
