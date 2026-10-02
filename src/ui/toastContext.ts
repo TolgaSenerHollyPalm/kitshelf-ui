@@ -1,10 +1,7 @@
 import { createContext, useContext } from 'react'
 
-/** The one thing a notice offers to do, e.g. "Aç" after a book is added. */
-export interface ToastAction {
-  label: string
-  to: string // an address, e.g. "#/book/abc"
-}
+/** The one thing a notice offers: a link ("Aç" after a book is added) or a button ("Geri al" after a row went). */
+export type ToastAction = { label: string; to: string } | { label: string; onClick: () => void } // `to`: an address, e.g. "#/book/abc"
 
 export interface ToastItem {
   id: number

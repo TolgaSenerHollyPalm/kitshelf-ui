@@ -38,12 +38,24 @@ export function Toasts() {
   return toasts.map((item) => (
     <div key={item.id} className={item.action ? `${toast.toast} ${toast.withAction}` : toast.toast} role="status">
       <p>{item.message}</p>
-      {/* Following the link is the notice's whole purpose, so it leaves with the tap. */}
-      {item.action && (
-        <a className={toast.action} href={item.action.to} onClick={item.dismiss}>
-          {item.action.label}
-        </a>
-      )}
+      {/* Following the link or pressing the button is the notice's whole purpose, so it leaves with the tap. */}
+      {item.action &&
+        ('to' in item.action ? (
+          <a className={toast.action} href={item.action.to} onClick={item.dismiss}>
+            {item.action.label}
+          </a>
+        ) : (
+          <button
+            type="button"
+            className={toast.action}
+            onClick={() => {
+              item.dismiss()
+              ;(item.action as { onClick: () => void }).onClick()
+            }}
+          >
+            {item.action.label}
+          </button>
+        ))}
     </div>
   ))
 }

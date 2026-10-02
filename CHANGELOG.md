@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.5.0 — 2026-10-02
+
+For FreeTimeKit's "Geri al", with nothing changed for a notice with a link: a toast can carry one button instead,
+`show('Listeden çıkarıldı', { duration: 5000, action: { label: 'Geri al', onClick: undo } })`. The notice leaves
+when the button is pressed, as it does when the link is followed.
+
 ## v0.4.0 — 2026-09-30
 
 A toast can carry one link: `show('Huzur kitaplığa eklendi', { action: { label: 'Aç', to: '#/book/…' } })`. The
