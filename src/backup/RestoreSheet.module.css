@@ -116,10 +116,10 @@
   cursor: pointer;
 }
 
-/* 2px teal edge; one pixel less padding keeps the text where it was. */
+/* A 2px edge in the kit colour; one pixel less padding keeps the text where it was. */
 .chosen {
   padding: 13px;
-  border: 2px solid var(--color-primary);
+  border: 2px solid var(--color-primary-edge, var(--color-primary));
   background: var(--color-primary-soft);
 }
 
@@ -128,7 +128,7 @@
   width: 22px;
   height: 22px;
   margin: 2px 0 0;
-  accent-color: var(--color-primary);
+  accent-color: var(--color-primary-edge, var(--color-primary));
 }
 
 .optionTitle {

@@ -11,7 +11,7 @@ build step here.
 
 ```json
 "dependencies": {
-  "kitshelf-ui": "github:TolgaSenerHollyPalm/kitshelf-ui#v0.5.0"
+  "kitshelf-ui": "github:TolgaSenerHollyPalm/kitshelf-ui#v0.5.1"
 }
 ```
 
@@ -71,6 +71,17 @@ default kit colour is TripKit's teal.
 
 Rule: button text needs at least **4.5:1** against `--color-primary`, in both schemes. On a light colour such as
 amber, `--color-on-primary` has to be dark.
+
+A colour that light also fails where the kit colour itself meets the page, so such a kit sets two more tokens:
+- `--color-primary-hover`: the main button under the pointer. It defaults to `--color-primary-dark`, whose dark text
+  would fall to about 2.3:1 on amber.
+- `--color-primary-edge`, used for:
+  - a chosen option's edge, a focused field and the restore sheet's chosen card, which need 3:1;
+  - a text button under the pointer, which needs 4.5:1.
+
+  It defaults to `--color-primary`.
+
+FreeTimeKit sets both in its light scheme.
 
 **Accent.** A second colour for part of a screen (TripKit: each trip's colour). Set `--accent-color`, `--accent-soft`,
 `--accent-ink` and `--accent-on` on a parent — for example a class passed as `theme` to `Screen` or `Tile`. The

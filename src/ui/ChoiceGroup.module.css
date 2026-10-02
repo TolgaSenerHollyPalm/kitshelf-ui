@@ -44,7 +44,7 @@
 }
 
 .option[aria-pressed='true'] {
-  border: 1.5px solid var(--color-primary);
+  border: 1.5px solid var(--color-primary-edge, var(--color-primary));
   background: var(--color-primary-soft);
   color: var(--color-primary-dark);
 }
@@ -75,7 +75,7 @@
 }
 
 .select:focus {
-  border-color: var(--color-primary);
+  border-color: var(--color-primary-edge, var(--color-primary));
   box-shadow: 0 0 0 3px var(--color-primary-soft);
   outline: none;
 }

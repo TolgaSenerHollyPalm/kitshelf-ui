@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.5.1 — 2026-10-02
+
+For a light kit colour such as FreeTimeKit's amber, two optional tokens:
+- `--color-primary-hover` colours the main button under the pointer.
+- `--color-primary-edge` colours a chosen option's edge, a focused field, the restore sheet's chosen card and a text
+  button under the pointer.
+
+Without them everything looks as before.
+
 ## v0.5.0 — 2026-10-02
 
 For FreeTimeKit's "Geri al", with nothing changed for a notice with a link: a toast can carry one button instead,

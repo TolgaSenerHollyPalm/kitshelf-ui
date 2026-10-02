@@ -17,7 +17,8 @@
   --color-strike: #b7b0a3;
   --color-placeholder: #707673; /* 4.6:1 on white */
 
-  /* The kit's own colour: each kit overrides these four, in both schemes (see README). */
+  /* The kit's own colour: each kit overrides these four, in both schemes (see README). A colour too light for the
+     page also sets --color-primary-hover and --color-primary-edge, which default to -dark and the colour itself. */
   --color-primary: #0a7d76;
   --color-primary-dark: #075f59;
   --color-primary-soft: #ddf1ee;

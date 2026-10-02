@@ -33,7 +33,7 @@
 }
 
 .card:focus-within {
-  border-color: var(--color-primary);
+  border-color: var(--color-primary-edge, var(--color-primary));
   box-shadow: 0 0 0 3px var(--color-primary-soft);
 }
 

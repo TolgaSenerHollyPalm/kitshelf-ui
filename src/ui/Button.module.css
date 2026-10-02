@@ -77,7 +77,7 @@
 
 @media (hover: hover) {
   .primary:hover:not(:disabled) {
-    background: var(--color-primary-dark);
+    background: var(--color-primary-hover, var(--color-primary-dark));
   }
 
   .secondary:hover:not(:disabled) {
@@ -89,7 +89,7 @@
   }
 
   .text:hover:not(:disabled) {
-    color: var(--color-primary);
+    color: var(--color-primary-edge, var(--color-primary));
   }
 
   .danger:hover:not(:disabled) {
