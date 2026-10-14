@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.6.0 — 2026-10-14
+
+Backups take less room:
+- `BackupCard` keeps its props but turns into a list card: the "Son yedek" row, then "Yedeği kaydet" and "Yedekten
+  geri yükle" as full-width rows, and the kit's description in small type under the card.
+- `WipeCard` is new: "Tüm verileri sil" as one red row in the same shape, with the kit's description under it. It
+  only calls `onWipe`; the kit asks first.
+- `TrashIcon` is new.
+- `BackupReminder` stays but no kit uses it any more: the dot on the settings button is the reminder.
+
+The README gives the settings order: Görünüm, the kit's own sections, Bu cihazda, Yedek, Tüm verileri sil, the
+version line.
+
 ## v0.5.1 — 2026-10-02
 
 For a light kit colour such as FreeTimeKit's amber, two optional tokens:

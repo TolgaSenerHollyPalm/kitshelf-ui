@@ -153,6 +153,16 @@ export function HistoryIcon({ size = 22, strokeWidth = 1.8 }: IconProps) {
   )
 }
 
+/** Deleting for good, e.g. everything on the device. */
+export function TrashIcon({ size = 20, strokeWidth = 1.8 }: IconProps) {
+  return (
+    <svg {...lineIcon(size, strokeWidth)}>
+      <path d="M4.5 7h15M9.5 7V4.8h5V7M6.5 7l1 12.2h9l1-12.2" />
+      <path d="M10.3 11v5M13.7 11v5" />
+    </svg>
+  )
+}
+
 /** A file, e.g. the backup about to be restored. */
 export function FileIcon({ size = 20, strokeWidth = 1.8 }: IconProps) {
   return (

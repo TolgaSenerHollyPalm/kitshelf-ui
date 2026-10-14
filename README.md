@@ -11,7 +11,7 @@ build step here.
 
 ```json
 "dependencies": {
-  "kitshelf-ui": "github:TolgaSenerHollyPalm/kitshelf-ui#v0.5.1"
+  "kitshelf-ui": "github:TolgaSenerHollyPalm/kitshelf-ui#v0.6.0"
 }
 ```
 
@@ -103,10 +103,10 @@ Components take **addresses** (`'#/settings'`), never a kit's own route type.
 | `styles/` | `tokens.css`, `base.css` (element defaults), `fonts.css` (Bricolage Grotesque and Figtree, latin and latin-ext, from `@fontsource-variable`) |
 | `ui/` | `Screen`, `Button` / `LinkButton` (primary, secondary, tonal, text, danger), `IconButton` / `IconLink` (with `badge`), `ListCard` / `LinkRow` / `ItemRow`, `Tile`, `CheckButton`, `Chip`, `ChoiceGroup`, `ConfirmDialog`, `DeleteButton`, `Disclosure`, `Menu`, `ProgressBar`, `SegmentedTabs`, `Stepper`, `AddField`, `RequiredMark`, `Avatar`, `Missing`, `OnlineBadge` + `useOnline`, `IosInstallHint` + `installHint.ts`, `InfoDialog`, `Sheet`, `ToastProvider` / `Toasts` / `useToast` (a notice can carry one link or one button), `SettingsFooter` |
 | `ui/` (styles and helpers) | `tone.ts` + `tones.module.css` (teal, coral, amber, neutral, accent), `text.module.css`, `turkish.ts` (`locative`: "Deniz’de") |
-| `ui/icons.tsx` | Back, Plus, Check, Close, Gear, Sliders, ChevronRight, ChevronDown, Dots, ArrowRight, Refresh, Auto, Sun, Moon, Share, Download, History, File, Alert. A kit draws its own with `lineIcon()` from `ui/iconBase.ts`. |
+| `ui/icons.tsx` | Back, Plus, Check, Close, Gear, Sliders, ChevronRight, ChevronDown, Dots, ArrowRight, Refresh, Auto, Sun, Moon, Share, Download, History, Trash, File, Alert. A kit draws its own with `lineIcon()` from `ui/iconBase.ts`. |
 | `app/` | `appearance.ts`, `hashRouter.ts` (`useHash()`, `go(href, { replace })`), `ConnectionNotice`, `UpdateToast`, `toast.module.css` (`stack`, `toast`, `actions`, `withAction`, `action`) |
 | `storage/` | `wipe.ts`: `wipeDevice({ databaseNames, ownKeys, beforeDelete, appShell, scope })` |
-| `backup/` | the file format, saving, reading, restoring, merging, the reminder, storage status and their texts; `BackupCard`, `RestoreSheet`, `BackupReminder`, `StorageStatus` (see Backups) |
+| `backup/` | the file format, saving, reading, restoring, merging, the reminder, storage status and their texts; `BackupCard`, `WipeCard`, `RestoreSheet`, `StorageStatus`, and `BackupReminder`, which no kit uses any more (see Backups) |
 
 ## Backups
 
@@ -145,9 +145,22 @@ transaction, so a failure changes nothing.
 State lives in localStorage under `<kit>-last-backup`, `<kit>-data-since` and `<kit>-backup-snoozed-until`. Add
 `backupKeyList(kit)` to the keys the kit's wipe removes, and call `trackDataSince()` whenever the data changes.
 
-**Parts.** `BackupCard`, `RestoreSheet`, `BackupReminder` and `StorageStatus` in `backup/`; `InfoDialog`,
+**Parts.** `BackupCard`, `WipeCard`, `RestoreSheet` and `StorageStatus` in `backup/`; `InfoDialog`,
 `ToastProvider` / `Toasts` / `useToast` and `SettingsFooter` in `ui/`. The shared Turkish texts are in
 `backup/texts.ts`; what names the kit's own data ("seyahat…") comes in as props.
+
+`BackupReminder` stays for compatibility, but the kits no longer use it: when a backup is due, the home screen only
+shows the dot on the settings button (`IconLink`'s `badge`, labelled "Ayarlar, yedek zamanı").
+
+**Settings screen.** The order every kit follows:
+1. Görünüm.
+2. The kit's own sections.
+3. Bu cihazda, with its notes.
+4. Yedek: the heading and `BackupCard`.
+5. `WipeCard`, without a heading; the kit's `ConfirmDialog` asks before `onWipe` deletes anything.
+6. `SettingsFooter`.
+
+Both cards put the kit's description under the card in small type; "Yedeği kaydet" is described by it.
 
 **Limits.** Chrome's list of file types it will share leaves out `.json`, so on Android the file is most likely
 downloaded rather than shared; keep the extension anyway. Deletions do not travel: merging an old backup brings back

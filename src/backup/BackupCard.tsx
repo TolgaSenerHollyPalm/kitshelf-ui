@@ -1,5 +1,4 @@
-import { useRef } from 'react'
-import { Button } from '../ui/Button.tsx'
+import { useId, useRef } from 'react'
 import Chip from '../ui/Chip.tsx'
 import { DownloadIcon, HistoryIcon, ShareIcon } from '../ui/icons.tsx'
 import styles from './BackupCard.module.css'
@@ -15,47 +14,56 @@ interface BackupCardProps {
   onFile: (file: File) => void // the file the user picked to restore from
 }
 
-/** The settings screen's backup card: when the last one was taken, and the two ways to use one. */
+/** The settings screen's backup card: when the last one was taken, two rows to use one, the kit's words below. */
 export default function BackupCard({ lastBackupAt, reminder, description, busy, onSave, onFile }: BackupCardProps) {
   const picker = useRef<HTMLInputElement>(null)
+  const describedBy = useId()
   const needsOne = !lastBackupAt || reminder.due
 
   return (
-    <section className={styles.card}>
-      <div className={styles.last}>
-        <span className={needsOne ? `${styles.tile} ${styles.attention}` : styles.tile}>
-          <HistoryIcon />
-        </span>
-        <span className={styles.lines}>
-          <span className={styles.label}>Son yedek</span>
-          <span className={styles.value}>{lastBackupText(lastBackupAt)}</span>
-        </span>
-        {reminder.due && reminder.reason === 'old' && (
-          <Chip tone="amber" strong>
-            Eski
-          </Chip>
-        )}
-      </div>
-      <p className={styles.description}>{description}</p>
-      <Button variant="primary" disabled={busy} onClick={onSave}>
-        <ShareIcon />
-        {busy ? 'Hazırlanıyor…' : 'Yedeği kaydet'}
-      </Button>
-      <Button onClick={() => picker.current?.click()}>
-        <DownloadIcon />
-        Yedekten geri yükle
-      </Button>
-      {/* No accept filter: some Android file pickers grey out .json they label differently; reading checks instead. */}
-      <input
-        ref={picker}
-        type="file"
-        hidden
-        onChange={(event) => {
-          const file = event.target.files?.[0]
-          event.target.value = '' // picking the same file again still counts as a change
-          if (file) onFile(file)
-        }}
-      />
-    </section>
+    <div className={styles.wrap}>
+      <section className={styles.card}>
+        <div className={styles.last}>
+          <span className={needsOne ? `${styles.tile} ${styles.attention}` : styles.tile}>
+            <HistoryIcon size={20} />
+          </span>
+          <span className={styles.lines}>
+            <span className={styles.label}>Son yedek</span>
+            <span className={styles.value}>{lastBackupText(lastBackupAt)}</span>
+          </span>
+          {reminder.due && reminder.reason === 'old' && (
+            <Chip tone="amber" strong>
+              Eski
+            </Chip>
+          )}
+        </div>
+        <button type="button" className={styles.row} disabled={busy} onClick={onSave} aria-describedby={describedBy}>
+          <span className={styles.icon}>
+            <ShareIcon size={20} strokeWidth={1.8} />
+          </span>
+          {busy ? 'Hazırlanıyor…' : 'Yedeği kaydet'}
+        </button>
+        <button type="button" className={styles.row} onClick={() => picker.current?.click()}>
+          <span className={styles.icon}>
+            <DownloadIcon size={20} strokeWidth={1.8} />
+          </span>
+          Yedekten geri yükle
+        </button>
+        {/* No accept filter: some Android file pickers grey out .json they label differently; reading checks instead. */}
+        <input
+          ref={picker}
+          type="file"
+          hidden
+          onChange={(event) => {
+            const file = event.target.files?.[0]
+            event.target.value = '' // picking the same file again still counts as a change
+            if (file) onFile(file)
+          }}
+        />
+      </section>
+      <p id={describedBy} className={styles.description}>
+        {description}
+      </p>
+    </div>
   )
 }
